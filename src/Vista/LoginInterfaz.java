@@ -160,13 +160,11 @@ public class LoginInterfaz extends javax.swing.JFrame {
         contrasena = String.valueOf(txtContrasena.getPassword());
         Login l = new Login();
         boolean validado = l.validarLogin(usuario, contrasena);
-        
+        if(validado){
             SistemaInterfaz sis = new SistemaInterfaz();
             sis.setVisible(validado);
             dispose();
-        
-        
-        
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
