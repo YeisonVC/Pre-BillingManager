@@ -1,7 +1,7 @@
 
-package sistema;
+package sistemaVenta;
 
-public class Sistema {
+public class SistemaVenta {
 
     public static void main(String[] args) {
         
