@@ -12,7 +12,9 @@ public class Conexion {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private final String user = "root";
     private final String password = "admin";
-    private final String url = "jdbc:mysql://localhost:3306/sistemaventa";
+    private final String url = "jdbc:mysql://localhost:3306/sistemaventa?useUnicode=true&use"
+            + "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+            + "serverTimezone=UTC";
     
     
     public Conexion(){
