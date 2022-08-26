@@ -10,8 +10,8 @@ import java.sql.Statement;
 public class Conexion {
     private static Connection conn;
     private static final String driver = "com.mysql.cj.jdbc.Driver";
-    private final String user = "root";
-    private final String password = "admin";
+    private final String user = "DBpaises_user";
+    private final String password = "1234";
     private final String url = "jdbc:mysql://localhost:3306/sistemaventa?useUnicode=true&use"
             + "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
             + "serverTimezone=UTC";
