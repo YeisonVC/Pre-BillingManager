@@ -1,12 +1,12 @@
 package sistemaVentaBL;
 
-public class ClientesBL {
+public class clientesBL {
     //------------------------
     //ATRIBUTOS
     //------------------------
     int Id;
     String nombre, correo;
-    int telefono, cedula;
+    long telefono, cedula;
 
     //------------------------
     //GETTERS AND SETTERS
@@ -35,19 +35,19 @@ public class ClientesBL {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
-    public int getCedula() {
+    public long getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(long cedula) {
         this.cedula = cedula;
     }
     
