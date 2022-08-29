@@ -9,6 +9,7 @@ public class conexion {
     
     Connection conn = null;//alias para Connection
     
+    //MÉTODO REALIZAR CONEXIÓN
     public conexion(){// Método Constructor
         try{
             Class.forName("org.sqlite.JDBC");
@@ -20,5 +21,30 @@ public class conexion {
     }
     
     
+    //MÉTODO sentencia o codigo sql para manipular tablas para añadir datos
+    public int ejecutarSentenciaSQL(String strSentenciaSQL){
+        try{
+            //alias preparedStatement, pstm sirve insertar sentencia SQL
+            PreparedStatement pstm = conn.prepareStatement(strSentenciaSQL);
+            pstm.execute();
+            return 1;//1 true
+        }catch(Exception e){
+            System.out.println("Error: " + e);
+            return 0;//0 false
+        }
+    }
     
+    //MÉTODO sentencia o codigo sql para manipular tablas para mostrar datos
+    //ResultSet da una respuesta
+    public ResultSet consultarRegistros(String strSentenciaSQL){
+        try{
+            PreparedStatement pstm = conn.prepareStatement(strSentenciaSQL);
+            ResultSet respuesta = pstm.executeQuery();
+            return respuesta;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
 }

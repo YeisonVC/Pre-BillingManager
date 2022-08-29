@@ -1,6 +1,7 @@
 package sistemaVentaGUI;
 
 import sistemaVentaDAL.*;
+import java.sql.*;
 
 
 public class SistemaInterfaz extends javax.swing.JFrame {
@@ -26,7 +27,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtClienteNombre = new javax.swing.JTextField();
         txtClienteTelefono = new javax.swing.JTextField();
-        txtClienteDireccion = new javax.swing.JTextField();
+        txtClienteCorreo = new javax.swing.JTextField();
         txtClienteCedula = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -54,11 +55,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         txtConfigCiudad = new javax.swing.JTextField();
         btnConfigGuardar = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnConfiguracion = new javax.swing.JButton();
+        btnNewVenta = new javax.swing.JButton();
+        btnAddCliente = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnProductos = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,34 +94,52 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         jLabel13.setText("Cedula:");
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jLabel14.setText("Dirección:");
+        jLabel14.setText("Correo:");
 
         txtClienteNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         txtClienteTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        txtClienteDireccion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        txtClienteCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         txtClienteCedula.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "NOMBRE", "CÉDULA", "TELÉFONO", "DIRECCIÓN"
+                "ID", "NOMBRE", "CÉDULA", "TELÉFONO", "CORREO"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(20);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
         btnClienteAnadir.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -178,7 +197,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                                 .addGap(102, 102, 102)
                                 .addComponent(jLabel14)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtClienteDireccion)))))
+                                .addComponent(txtClienteCorreo)))))
                 .addGap(50, 50, 50))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(135, 135, 135)
@@ -201,7 +220,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(txtClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtClienteCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtClienteCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addGap(30, 30, 30)
@@ -398,70 +417,70 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 850, 500));
 
-        jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(38, 73, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/settings.png"))); // NOI18N
-        jButton1.setText("Configuración");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfiguracion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnConfiguracion.setForeground(new java.awt.Color(38, 73, 255));
+        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/settings.png"))); // NOI18N
+        btnConfiguracion.setText("Configuración");
+        btnConfiguracion.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfiguracionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 210, 40));
+        jPanel1.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 210, 40));
 
-        jButton6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(38, 73, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shopping-cart.png"))); // NOI18N
-        jButton6.setText("Nueva Venta");
-        jButton6.setAlignmentY(0.0F);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton6.setIconTextGap(1);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnNewVenta.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnNewVenta.setForeground(new java.awt.Color(38, 73, 255));
+        btnNewVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shopping-cart.png"))); // NOI18N
+        btnNewVenta.setText("Nueva Venta");
+        btnNewVenta.setAlignmentY(0.0F);
+        btnNewVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNewVenta.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnNewVenta.setIconTextGap(1);
+        btnNewVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnNewVentaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 210, 40));
+        jPanel1.add(btnNewVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 210, 40));
 
-        jButton7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(38, 73, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/client.png"))); // NOI18N
-        jButton7.setText("Añadir Cliente");
-        jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCliente.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnAddCliente.setForeground(new java.awt.Color(38, 73, 255));
+        btnAddCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/client.png"))); // NOI18N
+        btnAddCliente.setText("Añadir Cliente");
+        btnAddCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnAddCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnAddClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 210, 40));
+        jPanel1.add(btnAddCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 210, 40));
 
-        jButton8.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(38, 73, 255));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit.png"))); // NOI18N
-        jButton8.setText("Salir");
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton8.setIconTextGap(6);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(38, 73, 255));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setIconTextGap(6);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 210, 40));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 210, 40));
 
-        jButton9.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(38, 73, 255));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/box.png"))); // NOI18N
-        jButton9.setText("Productos");
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnProductos.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnProductos.setForeground(new java.awt.Color(38, 73, 255));
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/box.png"))); // NOI18N
+        btnProductos.setText("Productos");
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnProductosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 210, 40));
+        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 210, 40));
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -483,20 +502,39 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         jTabbedPane2.setSelectedIndex(2);//Button move to windows / tabs
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btnProductosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         jTabbedPane2.setSelectedIndex(3);//Button move to windows / tabs
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnConfiguracionActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
         jTabbedPane2.setSelectedIndex(1);//Button move to windows / tabs
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnAddClienteActionPerformed
 
     private void btnClienteAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteAnadirActionPerformed
         conexion objConexion = new conexion();
+        
+        objConexion.ejecutarSentenciaSQL(
+                "INSERT INTO cliente (Id, Nombre, Cedula, Telefono, "
+                + "Correo) VALUES (null, 'Daniel Pinto2', '2005912703', "
+                + "'2232413836', '2danielpinto.ml@gmail.com')");
+
+        try {
+            ResultSet resultado = objConexion.consultarRegistros("SELECT * from cliente");
+            while (resultado.next()) {
+                System.out.println(resultado.getString("Id"));
+                System.out.println(resultado.getString("Nombre"));
+                System.out.println(resultado.getString("Cedula"));
+                System.out.println(resultado.getString("Correo"));
+                System.out.println(resultado.getString("Telefono"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        
     }//GEN-LAST:event_btnClienteAnadirActionPerformed
 
     private void btnClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEliminarActionPerformed
@@ -507,13 +545,13 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnClienteEditarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnNewVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewVentaActionPerformed
         jTabbedPane2.setSelectedIndex(0);//Button move to windows / tabs
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnNewVentaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);//finalizar software
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -552,15 +590,15 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCliente;
     private javax.swing.JButton btnClienteAnadir;
     private javax.swing.JButton btnClienteEditar;
     private javax.swing.JButton btnClienteEliminar;
     private javax.swing.JButton btnConfigGuardar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btnConfiguracion;
+    private javax.swing.JButton btnNewVenta;
+    private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -587,7 +625,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtClienteCedula;
-    private javax.swing.JTextField txtClienteDireccion;
+    private javax.swing.JTextField txtClienteCorreo;
     private javax.swing.JTextField txtClienteNombre;
     private javax.swing.JTextField txtClienteTelefono;
     private javax.swing.JTextField txtConfigCiudad;
