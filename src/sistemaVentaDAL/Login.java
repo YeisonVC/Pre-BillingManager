@@ -1,10 +1,10 @@
-package Modelo;
+package sistemaVentaDAL;
 
 //Clase para validar el usuario y contraseña en el Login
 
 import javax.swing.JOptionPane;
 
-public class Login {
+public class login {
     //-----------------------
     //ATRIBUTOS
     //-----------------------
@@ -15,11 +15,11 @@ public class Login {
     //METODOS CONSTRUCTORES
     //-----------------------
     
-    public Login() {
+    public login() {
         
     }
 
-    public Login(String usuario, String contrasena) {
+    public login(String usuario, String contrasena) {
         this.usuario = usuario;
         this.contrasena = contrasena;
     }

@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vista;
+package sistemaVentaGUI;
 
-import Modelo.*;
+import sistemaVentaDAL.login;
 /**
  *
  * @author danie
@@ -159,7 +159,7 @@ public class LoginInterfaz extends javax.swing.JFrame {
         String usuario, contrasena;
         usuario = txtUsuario.getText();
         contrasena = String.valueOf(txtContrasena.getPassword());
-        Login l = new Login();
+        login l = new login();
         boolean validado = l.validarLogin(usuario, contrasena);
         if(validado){
             SistemaInterfaz sis = new SistemaInterfaz();
