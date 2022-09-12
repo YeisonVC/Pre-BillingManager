@@ -2,10 +2,13 @@ package sistemaVentaDAL;
 
 //importar libreria descargada para conectar con la base de datos
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class conexion {
     //esta variable nos permitira conectarnos con la BD
-    String strConexionDB = "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/sistemaventa.db";
+    String strConexionDB = "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db";
+    //Daniel : "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db"
     
     Connection conn = null;//alias para Connection
     
@@ -20,6 +23,13 @@ public class conexion {
         }
     }
     
+    public void cerrarConexion(){
+        try{
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);   
+        }
+    }
     
     //MÉTODO sentencia o codigo sql para manipular tablas para añadir datos
     public int ejecutarSentenciaSQL(String strSentenciaSQL){
@@ -32,6 +42,7 @@ public class conexion {
             System.out.println("Error: " + e);
             return 0;//0 false
         }
+           
     }
     
     //MÉTODO sentencia o codigo sql para manipular tablas para mostrar datos

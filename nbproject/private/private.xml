@@ -3,7 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/danie/Desktop/Pre-BillingManager/src/sistemaVentaBL/clientesBL.java</file>
+            <file>file:/C:/Users/danie/Desktop/Pre-BillingManager/src/sistemaVentaBL/empresaBL.java</file>
+            <file>file:/C:/Users/danie/Desktop/Pre-BillingManager/src/sistemaVentaDAL/conexion.java</file>
             <file>file:/C:/Users/danie/Desktop/Pre-BillingManager/src/sistemaVentaGUI/SistemaInterfaz.java</file>
         </group>
     </open-files>

@@ -371,12 +371,22 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
         txtConfigCiudad.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         txtConfigCiudad.setEnabled(false);
+        txtConfigCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConfigCiudadActionPerformed(evt);
+            }
+        });
 
         btnConfigGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnConfigGuardar.setForeground(new java.awt.Color(38, 73, 255));
         btnConfigGuardar.setText("GUARDAR");
         btnConfigGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfigGuardar.setEnabled(false);
+        btnConfigGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigGuardarActionPerformed(evt);
+            }
+        });
 
         btnConfigCancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnConfigCancelar.setForeground(new java.awt.Color(38, 73, 255));
@@ -388,6 +398,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 btnConfigCancelarMouseClicked(evt);
             }
         });
+        btnConfigCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigCancelarActionPerformed(evt);
+            }
+        });
 
         btnConfigEditar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnConfigEditar.setForeground(new java.awt.Color(38, 73, 255));
@@ -396,6 +411,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnConfigEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfigEditarMouseClicked(evt);
+            }
+        });
+        btnConfigEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigEditarActionPerformed(evt);
             }
         });
 
@@ -600,9 +620,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         jTabbedPane2.setSelectedIndex(3);//Button move to windows / tabs
+        mostarDatosConfiguracion();
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
+
         jTabbedPane2.setSelectedIndex(1);//Button move to windows / tabs
     }//GEN-LAST:event_btnAddClienteActionPerformed
 
@@ -701,33 +723,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteLimpiarActionPerformed
 
     private void btnConfigEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigEditarMouseClicked
-        if(evt.getClickCount() == 1){
-            txtConfigNit.setEnabled(true);
-            txtConfigNombre.setEnabled(true);
-            txtConfigCorreo.setEnabled(true);
-            txtConfigDireccion.setEnabled(true);
-            txtConfigPostal.setEnabled(true);
-            txtConfigCiudad.setEnabled(true);
-            btnConfigGuardar.setEnabled(true);
-            btnConfigCancelar.setEnabled(true);
-            btnConfigEditar.setEnabled(false);
-        }
+        
     }//GEN-LAST:event_btnConfigEditarMouseClicked
 
     private void btnConfigCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigCancelarMouseClicked
-        mostarDatosConfiguracion();
-        if(evt.getClickCount() == 1){
-            txtConfigNit.setEnabled(false);
-            txtConfigNombre.setEnabled(false);
-            txtConfigCorreo.setEnabled(false);
-            txtConfigDireccion.setEnabled(false);
-            txtConfigPostal.setEnabled(false);
-            txtConfigCiudad.setEnabled(false);
-            btnConfigGuardar.setEnabled(false);
-            btnConfigCancelar.setEnabled(false);
-            btnConfigEditar.setEnabled(true);
-            
-        }
+        
     }//GEN-LAST:event_btnConfigCancelarMouseClicked
 
     private void txtClienteNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteNombreKeyReleased
@@ -749,6 +749,53 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private void txtClienteIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteIdKeyReleased
         habilitarBotonCliente();
     }//GEN-LAST:event_txtClienteIdKeyReleased
+
+    private void btnConfigCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigCancelarActionPerformed
+            mostarDatosConfiguracion();
+            txtConfigNit.setEnabled(false);
+            txtConfigNombre.setEnabled(false);
+            txtConfigCorreo.setEnabled(false);
+            txtConfigDireccion.setEnabled(false);
+            txtConfigPostal.setEnabled(false);
+            txtConfigCiudad.setEnabled(false);
+            btnConfigGuardar.setEnabled(false);
+            btnConfigCancelar.setEnabled(false);
+            btnConfigEditar.setEnabled(true);
+    }//GEN-LAST:event_btnConfigCancelarActionPerformed
+
+    private void btnConfigEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigEditarActionPerformed
+        
+            txtConfigNit.setEnabled(true);
+            txtConfigNombre.setEnabled(true);
+            txtConfigCorreo.setEnabled(true);
+            txtConfigDireccion.setEnabled(true);
+            txtConfigPostal.setEnabled(true);
+            txtConfigCiudad.setEnabled(true);
+            btnConfigGuardar.setEnabled(true);
+            btnConfigCancelar.setEnabled(true);
+            btnConfigEditar.setEnabled(false);
+        
+    }//GEN-LAST:event_btnConfigEditarActionPerformed
+
+    private void btnConfigGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigGuardarActionPerformed
+
+        recuperarDatosGUIConfiguracion();
+        conexion objtConexion = new conexion();
+        empresaBL objtEmpresa = recuperarDatosGUIConfiguracion();
+        String strSentenciaActualizar = String.format("UPDATE empresa SET Nit = %d, "
+                + "Nombre = '%s', Correo = '%s', Direccion = '%s', Postal = %d, Ciudad = '%s'", 
+                objtEmpresa.getNit(), objtEmpresa.getNombre(), objtEmpresa.getCorreo(), objtEmpresa.getDireccion(), 
+                objtEmpresa.getPostal(), objtEmpresa.getCiudad());
+        objtConexion.ejecutarSentenciaSQL(strSentenciaActualizar);
+        this.mostarDatosConfiguracion();
+        btnConfigCancelar.setEnabled(false);
+        btnConfigGuardar.setEnabled(false);
+        btnConfigEditar.setEnabled(true);
+    }//GEN-LAST:event_btnConfigGuardarActionPerformed
+
+    private void txtConfigCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfigCiudadActionPerformed
+
+    }//GEN-LAST:event_txtConfigCiudadActionPerformed
 
     //------------------------
     //Métodos para acceder a la información
@@ -800,6 +847,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 model.addRow(cliente);
                 int cont = 1+Integer.parseInt(resultado.getString("Id"));
                 txtClienteId.setText(cont+"");
+                
             }
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -842,6 +890,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     public void mostarDatosConfiguracion(){
         conexion objtConexion = new conexion();
         //try catch, para probar traida de datos
+        
         try {
             ResultSet resultado = objtConexion.consultarRegistros("SELECT * from empresa");
                 txtConfigNit.setText(resultado.getString("Nit"));
@@ -849,7 +898,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 txtConfigCorreo.setText(resultado.getString("Correo"));
                 txtConfigDireccion.setText(resultado.getString("Direccion"));
                 txtConfigPostal.setText(resultado.getString("Postal"));
-                txtConfigCiudad.setText(resultado.getString("Ciudad")+", "+resultado.getString("Pais"));
+                txtConfigCiudad.setText(resultado.getString("Ciudad"));
+                objtConexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
