@@ -4,7 +4,7 @@ package sistemaVentaDAL;
 
 import javax.swing.JOptionPane;
 
-public class login {
+public class Login {
     //-----------------------
     //ATRIBUTOS
     //-----------------------
@@ -15,11 +15,11 @@ public class login {
     //METODOS CONSTRUCTORES
     //-----------------------
     
-    public login() {
+    public Login() {
         
     }
 
-    public login(String usuario, String contrasena) {
+    public Login(String usuario, String contrasena) {
         this.usuario = usuario;
         this.contrasena = contrasena;
     }

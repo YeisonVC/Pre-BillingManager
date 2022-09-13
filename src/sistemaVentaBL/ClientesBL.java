@@ -1,6 +1,6 @@
 package sistemaVentaBL;
 
-public class clientesBL {
+public class ClientesBL {
     //------------------------
     //ATRIBUTOS
     //------------------------

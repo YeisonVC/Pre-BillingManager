@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class conexion {
+public class Conexion {
     //esta variable nos permitira conectarnos con la BD
     String strConexionDB = "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db";
     //Daniel : "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db"
@@ -13,7 +13,7 @@ public class conexion {
     Connection conn = null;//alias para Connection
     
     //MÉTODO REALIZAR CONEXIÓN
-    public conexion(){// Método Constructor
+    public Conexion(){// Método Constructor
         try{
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(strConexionDB);

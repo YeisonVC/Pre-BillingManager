@@ -799,8 +799,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         //------------------------
 
         //creación de objetos
-        conexion objtConexion = new conexion();
-        clientesBL objtClientes = recuperarDatosGUICliente();
+        Conexion objtConexion = new Conexion();
+        ClientesBL objtClientes = recuperarDatosGUICliente();
         
         //definir sentencia a enviar
         String strSentenciaInsertar = String.format(
@@ -817,8 +817,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         //ELIMINAR CLIENTES
         //------------------------
         //creación de objetos
-        conexion objtConexion = new conexion();
-        clientesBL objtClientes = recuperarDatosGUICliente();
+        Conexion objtConexion = new Conexion();
+        ClientesBL objtClientes = recuperarDatosGUICliente();
         
         //definir sentencia a enviar
         String strSentenciaEliminar = String.format(
@@ -835,8 +835,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         //EDITAR CLIENTES
         //------------------------
         //creación de objetos
-        conexion objtConexion = new conexion();
-        clientesBL objtClientes = recuperarDatosGUICliente();
+        Conexion objtConexion = new Conexion();
+        ClientesBL objtClientes = recuperarDatosGUICliente();
         
         //definir sentencia a enviar
         String strSentenciaEditar = String.format(
@@ -945,8 +945,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private void btnConfigGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigGuardarActionPerformed
 
         recuperarDatosGUIConfiguracion();
-        conexion objtConexion = new conexion();
-        empresaBL objtEmpresa = recuperarDatosGUIConfiguracion();
+        Conexion objtConexion = new Conexion();
+        EmpresaBL objtEmpresa = recuperarDatosGUIConfiguracion();
         String strSentenciaActualizar = String.format("UPDATE empresa SET Nit = %d, "
                 + "Nombre = '%s', Correo = '%s', Direccion = '%s', Postal = %d, Ciudad = '%s'", 
                 objtEmpresa.getNit(), objtEmpresa.getNombre(), objtEmpresa.getCorreo(), objtEmpresa.getDireccion(), 
@@ -970,11 +970,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     //Métodos para acceder a la información
     //------------------------
    
-    public clientesBL recuperarDatosGUICliente(){
+    public ClientesBL recuperarDatosGUICliente(){
         //------------------------------------------------------------------
         //AÑADIR CLIENTES
         //------------------------------------------------------------------
-        clientesBL objtClientes = new clientesBL();
+        ClientesBL objtClientes = new ClientesBL();
         
         //***ENVIAR DATOS***
         objtClientes.setNombre(txtClienteNombre.getText());
@@ -1001,7 +1001,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         while(model.getRowCount() >0 ){
             model.removeRow(0);
         }
-        conexion objtConexion = new conexion();
+        Conexion objtConexion = new Conexion();
         //try catch, para probar traida de datos
         try {
             ResultSet resultado = objtConexion.consultarRegistros("SELECT * from cliente");
@@ -1030,12 +1030,12 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     //------------------------------------------------------------------
     //CONFIGURACIÓN
     //------------------------------------------------------------------
-    public empresaBL recuperarDatosGUIConfiguracion(){
+    public EmpresaBL recuperarDatosGUIConfiguracion(){
         //------------------------------------------------------------------
         //CAMBIAR DATOS EMPRESA
         //------------------------------------------------------------------
         
-        empresaBL objtEmpresa = new empresaBL();
+        EmpresaBL objtEmpresa = new EmpresaBL();
         
         //***ENVIAR DATOS***
         objtEmpresa.setNombre(txtConfigNombre.getText());
@@ -1057,7 +1057,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     }
     
     public void mostarDatosConfiguracion(){
-        conexion objtConexion = new conexion();
+        Conexion objtConexion = new Conexion();
         //try catch, para probar traida de datos
         
         try {

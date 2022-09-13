@@ -1,6 +1,6 @@
 package sistemaVentaBL;
 
-public class empresaBL {
+public class EmpresaBL {
     //------------------------
     //ATRIBUTOS
     //------------------------

@@ -4,7 +4,7 @@
  */
 package sistemaVentaGUI;
 
-import sistemaVentaDAL.login;
+import sistemaVentaDAL.Login;
 /**
  *
  * @author danie
@@ -159,7 +159,7 @@ public class LoginInterfaz extends javax.swing.JFrame {
         String usuario, contrasena;
         usuario = txtUsuario.getText();
         contrasena = String.valueOf(txtContrasena.getPassword());
-        login l = new login();
+        Login l = new Login();
         boolean validado = l.validarLogin(usuario, contrasena);
         if(validado){
             SistemaInterfaz sis = new SistemaInterfaz();
