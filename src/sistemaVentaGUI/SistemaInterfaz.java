@@ -4,6 +4,7 @@ import sistemaVentaDAL.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +15,8 @@ import sistemaVentaBL.*;
 public class SistemaInterfaz extends javax.swing.JFrame {
     DefaultTableModel model;
     DefaultTableModel model2;
-
+    private long var;
+    
     public SistemaInterfaz() {//constructor
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
@@ -37,7 +39,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         String[] titulosProductos = {"CÓDIGO", "NOMBRE", "PRECIO", "CANTIDAD", "DESCRIPCIÓN"};
         model2 = new DefaultTableModel(null, titulosProductos);
         tblProductos.setModel(model2);
-        //mostarDatosProductos();//llama al método de abajo para mostrar los datos
+        mostarDatosProductos();//llama al método de abajo para mostrar los datos
         
         //llama al método de abajo para mostrar los datos en Configuracion
     }
@@ -86,6 +88,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnProductosEditar = new javax.swing.JButton();
         btnProductosLimpiar = new javax.swing.JButton();
         btnProductosEliminar = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -103,7 +106,6 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnConfigGuardar = new javax.swing.JButton();
         btnConfigCancelar = new javax.swing.JButton();
         btnConfigEditar = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
         btnConfiguracion = new javax.swing.JButton();
         btnNewVenta = new javax.swing.JButton();
         btnAddCliente = new javax.swing.JButton();
@@ -120,6 +122,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iconSystem.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 170, 150));
 
+        jTabbedPane2.setToolTipText("dfsf");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -128,10 +132,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("tab1", jPanel8);
+        jTabbedPane2.addTab("1", jPanel8);
+        jPanel8.getAccessibleContext().setAccessibleName("tab1");
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel10.setText("Nombre:");
@@ -251,6 +256,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnClienteEditar.setForeground(new java.awt.Color(38, 73, 255));
         btnClienteEditar.setText("EDITAR");
         btnClienteEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClienteEditar.setEnabled(false);
         btnClienteEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClienteEditarActionPerformed(evt);
@@ -344,10 +350,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                     .addComponent(btnClienteEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClienteEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClienteLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("tab2", jPanel9);
+        jTabbedPane2.addTab("2", jPanel9);
+        jPanel9.getAccessibleContext().setAccessibleName("tab1");
 
         jLabel20.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel20.setText("Código:");
@@ -364,6 +371,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel24.setText("Descripción:");
 
+        tblProductos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -383,7 +391,17 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblProductos.setIntercellSpacing(new java.awt.Dimension(0, 2));
+        tblProductos.setRowHeight(25);
+        tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblProductos);
+        if (tblProductos.getColumnModel().getColumnCount() > 0) {
+            tblProductos.getColumnModel().getColumn(4).setPreferredWidth(20);
+        }
 
         txtProductosCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         txtProductosCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -413,9 +431,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
             }
         });
 
-        txtProductosDesc.setColumns(20);
-        txtProductosDesc.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        txtProductosDesc.setColumns(10);
+        txtProductosDesc.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        txtProductosDesc.setLineWrap(true);
         txtProductosDesc.setRows(5);
+        txtProductosDesc.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtProductosDesc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtProductosDescKeyReleased(evt);
@@ -425,20 +445,41 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
         btnProductosGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnProductosGuardar.setForeground(new java.awt.Color(38, 73, 255));
-        btnProductosGuardar.setText("GUARDAR");
+        btnProductosGuardar.setText("AGREGAR");
         btnProductosGuardar.setEnabled(false);
+        btnProductosGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosGuardarActionPerformed(evt);
+            }
+        });
 
         btnProductosEditar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnProductosEditar.setForeground(new java.awt.Color(38, 73, 255));
         btnProductosEditar.setText("EDITAR");
+        btnProductosEditar.setEnabled(false);
+        btnProductosEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosEditarActionPerformed(evt);
+            }
+        });
 
         btnProductosLimpiar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnProductosLimpiar.setForeground(new java.awt.Color(38, 73, 255));
         btnProductosLimpiar.setText("LIMPIAR");
+        btnProductosLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosLimpiarActionPerformed(evt);
+            }
+        });
 
         btnProductosEliminar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnProductosEliminar.setForeground(new java.awt.Color(255, 51, 51));
         btnProductosEliminar.setText("ELIMINAR");
+        btnProductosEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -515,10 +556,23 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                     .addComponent(btnProductosEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProductosLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProductosEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("tab3", jPanel10);
+        jTabbedPane2.addTab("3", jPanel10);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 463, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("4", jPanel12);
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -612,49 +666,51 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtConfigNombre)
-                                    .addComponent(txtConfigCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtConfigDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtConfigNit, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtConfigPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(txtConfigCiudad)))))
+                        .addContainerGap()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnConfigGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98)
-                        .addComponent(btnConfigCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(btnConfigEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtConfigNombre)
+                                            .addComponent(txtConfigCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtConfigDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtConfigNit, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel8))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtConfigPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                            .addComponent(txtConfigCiudad)))))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(151, 151, 151)
+                                .addComponent(btnConfigGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(btnConfigCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(104, 104, 104)
+                                .addComponent(btnConfigEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 70, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -679,7 +735,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                     .addComponent(txtConfigDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtConfigCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfigGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConfigCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -687,20 +743,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 .addGap(66, 66, 66))
         );
 
-        jTabbedPane2.addTab("tab4", jPanel11);
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("tab5", jPanel12);
+        jTabbedPane2.addTab("5", jPanel11);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -710,8 +753,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jTabbedPane2.getAccessibleContext().setAccessibleName("");
+        jTabbedPane2.getAccessibleContext().setAccessibleDescription("");
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 850, 500));
 
@@ -822,7 +868,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
-        jTabbedPane2.setSelectedIndex(3);//Button move to windows / tabs
+        jTabbedPane2.setSelectedIndex(4);//Button move to windows / tabs
         mostarDatosConfiguracion();
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
@@ -991,6 +1037,12 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 objtEmpresa.getPostal(), objtEmpresa.getCiudad());
         objtConexion.ejecutarSentenciaSQL(strSentenciaActualizar);
         this.mostarDatosConfiguracion();
+        txtConfigNit.setEnabled(false);
+        txtConfigNombre.setEnabled(false);
+        txtConfigDireccion.setEnabled(false);
+        txtConfigPostal.setEnabled(false);
+        txtConfigCiudad.setEnabled(false);
+        txtConfigCorreo.setEnabled(false);
         btnConfigCancelar.setEnabled(false);
         btnConfigGuardar.setEnabled(false);
         btnConfigEditar.setEnabled(true);
@@ -1001,7 +1053,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfigCiudadActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(3);//Button move to windows / tabs
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void txtProductosCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductosCodigoKeyReleased
@@ -1023,6 +1075,87 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private void txtProductosDescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductosDescKeyReleased
         habilitarBotonProductos();
     }//GEN-LAST:event_txtProductosDescKeyReleased
+
+    private void btnProductosLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosLimpiarActionPerformed
+       txtProductosCodigo.setText("");
+       txtProductosNombre.setText("");
+       txtProductosCantidad.setText("");
+       txtProductosPrecio.setText("");
+       txtProductosDesc.setText("");
+    }//GEN-LAST:event_btnProductosLimpiarActionPerformed
+
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
+        if(evt.getClickCount() == 1){
+            JTable receptor = (JTable)evt.getSource();
+            txtProductosCodigo.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 0).toString());
+            txtProductosNombre.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 1).toString());
+            txtProductosPrecio.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 2).toString());
+            txtProductosCantidad.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 3).toString());
+            txtProductosDesc.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 4).toString());
+            var = Long.parseLong(txtProductosCodigo.getText());
+        }
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void btnProductosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosEliminarActionPerformed
+        //------------------------
+        //ELIMINAR PRODUCTOS
+        //------------------------
+        //creación de objetos
+        Conexion objtConexion = new Conexion();
+        ProductosBL objtProductos = recuperarDatosGUIProducto();
+        
+        //definir sentencia a enviar
+        String strSentenciaEliminar = String.format(
+                "DELETE FROM producto WHERE Codigo = %d", objtProductos.getCodigo());
+        objtConexion.ejecutarSentenciaSQL(strSentenciaEliminar);
+        
+        //mostrar nuevamente datos
+        this.mostarDatosProductos();
+    }//GEN-LAST:event_btnProductosEliminarActionPerformed
+
+    private void btnProductosGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosGuardarActionPerformed
+        //------------------------
+        //AÑADIR PRODUCTOS
+        //------------------------
+
+        //creación de objetos
+        Conexion objtConexion = new Conexion();
+        ProductosBL objtProductos = recuperarDatosGUIProducto();
+        
+        //definir sentencia a enviar
+        String strSentenciaInsertar = String.format(
+                "INSERT INTO producto (Codigo, Nombre, Precio, Cantidad, Descripcion) "
+                        + "VALUES ('%s', '%s', '%s', '%s', '%s')", 
+                objtProductos.getCodigo(), objtProductos.getNombre(), objtProductos.getPrecio(), 
+                objtProductos.getCantidad(), objtProductos.getDescripcion());
+        objtConexion.ejecutarSentenciaSQL(strSentenciaInsertar);
+        
+        this.mostarDatosProductos();
+    }//GEN-LAST:event_btnProductosGuardarActionPerformed
+   
+    private void btnProductosEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosEditarActionPerformed
+        //------------------------
+        //EDITAR PRODUCTOS
+        //------------------------
+        //creación de objetos
+        
+        Conexion objtConexion = new Conexion();
+        ProductosBL objtProductos = recuperarDatosGUIProducto();
+        System.out.println(objtProductos.getCodigo());
+        if(Long.parseLong(txtProductosCodigo.getText()) == this.var){
+            //definir sentencia a enviar
+            String strSentenciaEditar = String.format(
+                "UPDATE producto SET Nombre = '%s', Precio = '%s', Cantidad = '%s', Descripcion = '%s' WHERE Codigo = %d", 
+                objtProductos.getNombre(), objtProductos.getPrecio(), objtProductos.getCantidad(), 
+                objtProductos.getDescripcion(), objtProductos.getCodigo());
+            objtConexion.ejecutarSentenciaSQL(strSentenciaEditar);
+        }else {
+            JOptionPane.showMessageDialog(this, "El 'Código' no puede ser modificado\n INTENTE NUEVAMENTE!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        //mostrar nuevamente datos
+        this.mostarDatosProductos();
+    }//GEN-LAST:event_btnProductosEditarActionPerformed
 
     //------------------------------------------------------------------
     //AÑADIR CLIENTES
@@ -1046,11 +1179,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         objtClientes.setId(Id);
         
         long Cedula = (txtClienteCedula.getText().isEmpty()? 
-                0 : Long.parseLong(txtClienteCedula.getText()));//convertir a int
+                0 : Long.parseLong(txtClienteCedula.getText()));//convertir a long
         objtClientes.setCedula(Cedula);
         
         long Telefono = (txtClienteTelefono.getText().isEmpty()? 
-                0 : Long.parseLong(txtClienteTelefono.getText()));//convertir a int
+                0 : Long.parseLong(txtClienteTelefono.getText()));//convertir a long
         objtClientes.setTelefono(Telefono);
             
         return objtClientes;//retorna el objeto creado que contiene toda la info
@@ -1076,6 +1209,61 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 int cont = 1+Integer.parseInt(resultado.getString("Id"));
                 txtClienteId.setText(cont+"");
                 
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        } 
+    }
+    
+    //------------------------------------------------------------------
+    //AÑADIR PRODUCTOS
+    //------------------------------------------------------------------
+   
+    public ProductosBL recuperarDatosGUIProducto(){
+        //------------------------
+        //Método para acceder a la información
+        //------------------------
+        
+        ProductosBL objtProductos = new ProductosBL();
+        
+        //***ENVIAR DATOS***
+        objtProductos.setNombre(txtProductosNombre.getText());
+        objtProductos.setDescripcion(txtProductosDesc.getText());
+        
+        //***CONVERTIR A LONG***
+        //Operador ternario, obtener datos y guardarlos en variables
+        long Codigo = (txtProductosCodigo.getText().isEmpty()? 
+                0 : Long.parseLong(txtProductosCodigo.getText()));//convertir a long
+        objtProductos.setCodigo(Codigo);
+        
+        long Precio = (txtProductosPrecio.getText().isEmpty()? 
+                0 : Long.parseLong(txtProductosPrecio.getText()));//convertir a long
+        objtProductos.setPrecio(Precio);
+        
+        long Cantidad = (txtProductosCantidad.getText().isEmpty()? 
+                0 : Long.parseLong(txtProductosCantidad.getText()));//convertir a long
+        objtProductos.setCantidad(Cantidad);
+            
+        return objtProductos;//retorna el objeto creado que contiene toda la info
+    }
+    
+    public void mostarDatosProductos(){
+        while(model2.getRowCount() >0 ){
+            model2.removeRow(0);
+        }
+        Conexion objtConexion = new Conexion();
+        //try catch, para probar traida de datos
+        try {
+            ResultSet resultado = objtConexion.consultarRegistros("SELECT * from producto");
+            while (resultado.next()) {
+                
+                //Encapsular datos en un objeto
+                Object[] producto = {
+                    resultado.getString("Codigo"), resultado.getString("Nombre"),resultado.getString("Precio"),
+                resultado.getString("Cantidad"),resultado.getString("Descripcion")
+                };
+                //Mostrar datos en la tabla
+                model2.addRow(producto);
             }
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -1142,9 +1330,10 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 !txtClienteTelefono.getText().isEmpty()){
             
             btnClienteAnadir.setEnabled(true);
+            btnClienteEditar.setEnabled(true);
         }else{
-           
             btnClienteAnadir.setEnabled(false);
+            btnClienteEditar.setEnabled(false);
         }
     }
     
@@ -1153,8 +1342,10 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 !txtProductosPrecio.getText().isEmpty() && !txtProductosCantidad.getText().isEmpty() &&
                 !txtProductosDesc.getText().isEmpty()){
             btnProductosGuardar.setEnabled(true);
+            btnProductosEditar.setEnabled(true);
         }else{
             btnProductosGuardar.setEnabled(false);
+            btnProductosEditar.setEnabled(false);
         }
     }
     /**
