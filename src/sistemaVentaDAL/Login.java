@@ -8,8 +8,8 @@ public class Login {
     //-----------------------
     //ATRIBUTOS
     //-----------------------
-    private String usuario = "rootuser";
-    private String contrasena = "root123";
+    private String usuario;
+    private String contrasena;
     
     //-----------------------
     //METODOS CONSTRUCTORES
@@ -17,11 +17,6 @@ public class Login {
     
     public Login() {
         
-    }
-
-    public Login(String usuario, String contrasena) {
-        this.usuario = usuario;
-        this.contrasena = contrasena;
     }
 
     //-----------------------
@@ -33,6 +28,22 @@ public class Login {
             return true;
         }else{
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+            return false ;
+        }
+    }
+    
+    public boolean validarContrasena(String contrasena) {
+        if(contrasena.equals(this.contrasena)){
+            return true;
+        }else{
+            return false ;
+        }
+    }
+     
+    public boolean validarUsuario(String usuario) {
+        if(usuario.equals(this.usuario)){
+            return true;
+        }else{
             return false ;
         }
     }

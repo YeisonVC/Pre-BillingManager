@@ -4,19 +4,20 @@
  */
 package sistemaVentaGUI;
 
+import java.sql.ResultSet;
+import sistemaVentaDAL.Conexion;
 import sistemaVentaDAL.Login;
-/**
- *
- * @author danie
- */
-public class LoginInterfaz extends javax.swing.JFrame {
 
+public class LoginInterfaz extends javax.swing.JFrame {
+    
     /**
      * Creates new form Login
      */
     public LoginInterfaz() {
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
+        
+        
     }
 
     /**
@@ -156,16 +157,30 @@ public class LoginInterfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String usuario, contrasena;
-        usuario = txtUsuario.getText();
-        contrasena = String.valueOf(txtContrasena.getPassword());
+        //Guardar en variables de la clase Login los datos en la base de datos
+        Conexion objtConexion = new Conexion();
         Login l = new Login();
+        //try catch, para probar traida de datos
+        try {
+            ResultSet resultado = objtConexion.consultarRegistros("SELECT * from login");
+            while (resultado.next()) {
+                //Encapsular datos en un objeto
+                l.setUsuario(resultado.getString("User"));
+                l.setContrasena(resultado.getString("Password"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        } 
+        
+        String usuario = txtUsuario.getText();
+        String contrasena = String.valueOf(txtContrasena.getPassword());
         boolean validado = l.validarLogin(usuario, contrasena);
         if(validado){
             SistemaInterfaz sis = new SistemaInterfaz();
             sis.setVisible(validado);
             dispose();
         }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -176,6 +191,23 @@ public class LoginInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrasenaActionPerformed
 
+    public void recuperarDatos(){
+        //Guardar en variables de la clase Login los datos en la base de datos
+        Conexion objtConexion = new Conexion();
+        Login l = new Login();
+        //try catch, para probar traida de datos
+        try {
+            ResultSet resultado = objtConexion.consultarRegistros("SELECT * from login");
+            while (resultado.next()) {
+                //Encapsular datos en un objeto
+                l.setUsuario(resultado.getString("User"));
+                l.setContrasena(resultado.getString("Password"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        } 
+    }
+    
     /**
      * @param args the command line arguments
      */
