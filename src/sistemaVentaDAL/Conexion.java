@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 
 public class Conexion {
     //esta variable nos permitira conectarnos con la BD
-    String strConexionDB = "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db";
+    String strConexionDB = "jdbc:sqlite:C:/Users/Oscar/OneDrive/Documentos/Pre-BillingManager/src/Data Bases/sistemaventa.db";
     //Daniel : "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db"
+    //Santiago : "jdbc:sqlite:C:/Users/Oscar/OneDrive/Documentos/Pre-BillingManager/src/Data Bases/sistemaventa.db"
     
     Connection conn = null;//alias para Connection
     
