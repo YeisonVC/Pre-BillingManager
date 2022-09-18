@@ -2,8 +2,7 @@ package sistemaVentaDAL;
 
 //importar libreria descargada para conectar con la base de datos
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Conexion {
     //esta variable nos permitira conectarnos con la BD
@@ -56,6 +55,7 @@ public class Conexion {
             System.out.println(e);
             return null;
         }
+        
     }
 
 }

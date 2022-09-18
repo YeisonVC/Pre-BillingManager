@@ -6,6 +6,7 @@ public class ProductosBL {
     //------------------------
     long codigo, precio, cantidad;
     String nombre, descripcion;
+    
 
     //------------------------
     //GETTERS AND SETTERS
