@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import sistemaVentaDAL.*;
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 
 import sistemaVentaBL.*;
 
@@ -19,6 +21,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     DefaultTableModel model;
     DefaultTableModel model2;
     DefaultTableModel model3;
+    DefaultTableModel model4;
     private long var;
     int item;   
     double totalPagar = 0.00;
@@ -36,9 +39,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         String[] titulosClientes = {"ID", "NOMBRE", "CÉDULA", "TELÉFONO", "CORREO"};
         model = new DefaultTableModel(null, titulosClientes);
         tblClientes.setModel(model);
-        //llama al método de abajo para mostrar los datos
         
-        //llama al método de abajo para mostrar los datos en Configuracion
         
         //------------------------
         //PRODUCTOS
@@ -47,10 +48,13 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         String[] titulosProductos = {"CÓDIGO", "NOMBRE", "PRECIO", "CANTIDAD", "DESCRIPCIÓN"};
         model2 = new DefaultTableModel(null, titulosProductos);
         tblProductos.setModel(model2);
-        //llama al método de abajo para mostrar los datos
         
-        //llama al método de abajo para mostrar los datos en Configuracion
+        //------------------------
+        //MOSTRAR FECHA ACTUAL
+        //------------------------
+        txtVentaFecha.setText(this.fecha());
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,7 +83,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         txtVentaPrecio = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         txtVentaPrecioTotal = new javax.swing.JTextField();
-        btnVantaPagar = new javax.swing.JButton();
+        btnVentaPagar = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
         btnVentaImprimir = new javax.swing.JButton();
         btnVentaDelete = new javax.swing.JButton();
@@ -161,7 +165,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
         jTabbedPane2.setForeground(new java.awt.Color(0, 51, 255));
 
-        tblNuevaVenta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblNuevaVenta.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         tblNuevaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -178,13 +182,13 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblNuevaVenta.setRowHeight(25);
-        tblNuevaVenta.setRowMargin(2);
+        tblNuevaVenta.setRowHeight(35);
+        tblNuevaVenta.setRowMargin(3);
         jScrollPane4.setViewportView(tblNuevaVenta);
         if (tblNuevaVenta.getColumnModel().getColumnCount() > 0) {
             tblNuevaVenta.getColumnModel().getColumn(0).setResizable(false);
             tblNuevaVenta.getColumnModel().getColumn(0).setPreferredWidth(15);
-            tblNuevaVenta.getColumnModel().getColumn(2).setPreferredWidth(15);
+            tblNuevaVenta.getColumnModel().getColumn(2).setPreferredWidth(10);
         }
 
         txtVentaCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -240,6 +244,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         txtVentaClienteNombre.setEditable(false);
         txtVentaClienteNombre.setBackground(new java.awt.Color(204, 204, 204));
         txtVentaClienteNombre.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        txtVentaClienteNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtVentaClienteNombreKeyReleased(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel26.setText("Nombre:");
@@ -256,11 +265,21 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         txtVentaPrecioTotal.setBackground(new java.awt.Color(204, 204, 204));
         txtVentaPrecioTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         txtVentaPrecioTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtVentaPrecioTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtVentaPrecioTotalKeyReleased(evt);
+            }
+        });
 
-        btnVantaPagar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnVantaPagar.setText("PAGAR");
-        btnVantaPagar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnVantaPagar.setBorderPainted(false);
+        btnVentaPagar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnVentaPagar.setText("PAGAR");
+        btnVentaPagar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVentaPagar.setBorderPainted(false);
+        btnVentaPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaPagarActionPerformed(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 50)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(177, 177, 182));
@@ -272,6 +291,11 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnVentaImprimir.setBorderPainted(false);
 
         btnVentaDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/delete.png"))); // NOI18N
+        btnVentaDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaDeleteActionPerformed(evt);
+            }
+        });
 
         btnVentaAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
         btnVentaAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +340,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                                 .addGroup(jPanel8Layout.createSequentialGroup()
                                     .addComponent(btnVentaImprimir)
                                     .addGap(45, 45, 45)
-                                    .addComponent(btnVantaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnVentaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -378,8 +402,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                             .addComponent(btnVentaDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVentaAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -394,7 +418,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtVentaClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel26))
-                            .addComponent(btnVantaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVentaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVentaImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel28)))
         );
@@ -841,6 +865,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("3", jPanel10);
 
+        tblVentas.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         tblVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -849,10 +874,16 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CÉDULA", "CLIENTE", "TOTAL", "FECHA"
             }
         ));
+        tblVentas.setRowHeight(37);
+        tblVentas.setRowMargin(3);
         jScrollPane5.setViewportView(tblVentas);
+        if (tblVentas.getColumnModel().getColumnCount() > 0) {
+            tblVentas.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tblVentas.getColumnModel().getColumn(2).setPreferredWidth(17);
+        }
 
         btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pdf.png"))); // NOI18N
 
@@ -1390,6 +1421,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         jTabbedPane2.setSelectedIndex(3);//Button move to windows / tabs
+        mostarDatosVentas();
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void txtProductosCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductosCodigoKeyReleased
@@ -1641,7 +1673,64 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVentaAddActionPerformed
 
-     public static String EliminarNotaciónCientífica(double número) {
+    private void btnVentaDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaDeleteActionPerformed
+        model3 = (DefaultTableModel) tblNuevaVenta.getModel();
+        model3.removeRow(tblNuevaVenta.getSelectedRow());//Elimina la fila seleccionada
+        totalPagar();
+        txtVentaCodigo.requestFocus();
+        
+    }//GEN-LAST:event_btnVentaDeleteActionPerformed
+
+    private void btnVentaPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaPagarActionPerformed
+        if (txtVentaPrecioTotal.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese productos");
+        } else if (txtVentaClienteNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el cliente");
+        } else {
+            //------------------------
+            //NUEVA VENTA
+            //------------------------
+            //creación de objetos
+            Conexion objtConexion = new Conexion();
+            VentaBL objtVenta = recuperarDatosGUIVenta();
+
+            //definir sentencia a enviar
+            String strSentenciaInsertar = String.format(
+                    "INSERT INTO ventas (Cliente, Total, Fecha, Cedula) "
+                    + "VALUES ('%s', '%s', '%s', '%s')",
+                    objtVenta.getCliente(), objtVenta.getTotal(), objtVenta.getFecha(),
+                    objtVenta.getCedula());
+            objtConexion.ejecutarSentenciaSQL(strSentenciaInsertar);
+            actualizarStock();
+            txtVentaCodigo.setText("");
+            txtVentaCantidad.setText("");
+            txtVentaClienteCedula.setText("");
+            txtVentaClienteNombre.setText("");
+            txtVentaPrecio.setText("");
+            txtVentaPrecioTotal.setText("");
+            txtVentaProducto.setText("");
+            txtVentaStock.setText("");
+            Clear_Table1();
+        }
+        
+    }//GEN-LAST:event_btnVentaPagarActionPerformed
+
+    private void txtVentaPrecioTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVentaPrecioTotalKeyReleased
+        
+    }//GEN-LAST:event_txtVentaPrecioTotalKeyReleased
+
+    private void txtVentaClienteNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVentaClienteNombreKeyReleased
+        
+    }//GEN-LAST:event_txtVentaClienteNombreKeyReleased
+    
+    private void Clear_Table1() {
+        for (int i = 0; i < tblNuevaVenta.getRowCount(); i++) {
+            model3.removeRow(i);
+            i -= 1;
+        }
+    }
+
+    public static String EliminarNotaciónCientífica(double número) {
         String d = "####################################";
         return new DecimalFormat("#." + d + d + d).format(número);
     }
@@ -1807,6 +1896,104 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         txtVentaCodigo.setText("");
     }
     
+    public String fecha(){
+        Date fecha = new Date();
+        SimpleDateFormat FechaAct = new SimpleDateFormat("dd-MM-yyyy");
+        return FechaAct.format(fecha);
+    }
+    
+    public String fecha2(){
+        Date fecha = new Date();
+        SimpleDateFormat FechaAct = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+        return FechaAct.format(fecha);
+    }
+    
+    public VentaBL recuperarDatosGUIVenta(){
+        //------------------------
+        //Método para acceder a la información
+        //------------------------
+        
+        VentaBL objtVenta = new VentaBL();
+        
+        //***ENVIAR DATOS***
+        objtVenta.setCliente(txtVentaClienteNombre.getText());
+        objtVenta.setFecha(this.fecha2());
+        
+        //***CONVERTIR A double***
+        //Operador ternario, obtener datos y guardarlos en variables
+        double total = (txtVentaPrecioTotal.getText().isEmpty()? 
+                0 : Double.parseDouble(txtVentaPrecioTotal.getText()));//convertir a double
+        objtVenta.setTotal(total);
+        
+        long cedula = (txtVentaClienteCedula.getText().isEmpty()? 
+                0 : Long.parseLong(txtVentaClienteCedula.getText()));//convertir a long
+        objtVenta.setCedula(cedula);
+        
+        
+        
+        return objtVenta;
+    }
+    
+    public void mostarDatosVentas(){
+        model4 = (DefaultTableModel) tblVentas.getModel();
+        while(model4.getRowCount() >0 ){
+            model4.removeRow(0);
+        }
+        
+        Conexion objtConexion = new Conexion();
+        //try catch, para probar traida de datos
+        try {
+            ResultSet resultado = objtConexion.consultarRegistros("SELECT * from ventas");
+            while (resultado.next()) {
+                //Encapsular datos en un objeto
+                Object[] venta = {
+                    resultado.getString("Cedula"), resultado.getString("Cliente"),resultado.getString("Total"),
+                resultado.getString("Fecha")
+                };
+                //Mostrar datos en la tabla
+                model4.addRow(venta);
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        } 
+    }
+    
+    public void actualizarStock() {
+        //------------------------
+        //Actualizar el Stock un producto
+        //------------------------
+
+        Conexion objtConexion = new Conexion();
+        ProductosBL objtProductos = recuperarDatosGUIProducto();
+
+        for (int i = 0; i < tblNuevaVenta.getRowCount(); i++) {
+            //definir sentencia a enviar
+            int cant = Integer.parseInt(buscarStock(tblNuevaVenta.getValueAt(i, 0).toString())) - Integer.parseInt(tblNuevaVenta.getValueAt(i, 2).toString());
+            String strSentenciaEditar = String.format(
+                    "UPDATE producto SET Cantidad = '%s' WHERE Codigo = '%s'", cant, tblNuevaVenta.getValueAt(i, 0).toString());
+                    
+            objtConexion.ejecutarSentenciaSQL(strSentenciaEditar);
+        }
+    }
+    
+    public String buscarStock(String cod){
+        Conexion objtConexion = new Conexion();
+        String res = "";
+        //try catch, para probar traida de datos
+        try {
+                ResultSet resultado = objtConexion.consultarRegistros("SELECT * from producto "
+                        + "WHERE Codigo='" + cod +"'");
+                res =resultado.getString("Cantidad");
+
+        } catch (Exception e) {
+                System.out.println("Error: " + e);
+        }
+        objtConexion.cerrarConexion();
+        return res;
+    }
+
+    
+    
     
     //------------------------------------------------------------------
     //CONFIGURACIÓN
@@ -1942,10 +2129,10 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private javax.swing.JButton btnProductosGuardar;
     private javax.swing.JButton btnProductosLimpiar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnVantaPagar;
     private javax.swing.JButton btnVentaAdd;
     private javax.swing.JButton btnVentaDelete;
     private javax.swing.JButton btnVentaImprimir;
+    private javax.swing.JButton btnVentaPagar;
     private javax.swing.JButton btnVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
