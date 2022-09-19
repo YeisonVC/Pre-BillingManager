@@ -16,8 +16,7 @@ public class LoginInterfaz extends javax.swing.JFrame {
     public LoginInterfaz() {
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
-        
-        
+        this.txtOcultar.setVisible(false);  
     }
 
     /**
@@ -31,6 +30,8 @@ public class LoginInterfaz extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        txtOcultar = new javax.swing.JLabel();
+        txtVer = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -46,18 +47,38 @@ public class LoginInterfaz extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ocultar.png"))); // NOI18N
+        txtOcultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOcultarMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 30, 30));
+
+        txtVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ver.png"))); // NOI18N
+        txtVer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtVerMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 30, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login.png"))); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 23, 141, 124));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(38, 73, 255));
         jLabel4.setText("Usuario:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 165, 124, 48));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(38, 73, 255));
         jLabel6.setText("Contraseña:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 264, 251, 48));
 
         btnLogin.setBackground(new java.awt.Color(38, 73, 255));
         btnLogin.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -70,6 +91,7 @@ public class LoginInterfaz extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 394, 178, 61));
 
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -77,53 +99,15 @@ public class LoginInterfaz extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
+        jPanel2.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 219, 310, -1));
 
-        txtContrasena.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtContrasena.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         txtContrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContrasenaActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario)
-                            .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
+        jPanel2.add(txtContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 318, 310, 35));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 395, 480));
 
@@ -191,6 +175,18 @@ public class LoginInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrasenaActionPerformed
 
+    private void txtVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtVerMouseClicked
+        txtVer.setVisible(false);
+        txtOcultar.setVisible(true);
+        txtContrasena.setEchoChar((char)0);
+    }//GEN-LAST:event_txtVerMouseClicked
+
+    private void txtOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOcultarMouseClicked
+        txtVer.setVisible(true);
+        txtOcultar.setVisible(false);
+        txtContrasena.setEchoChar('*');
+    }//GEN-LAST:event_txtOcultarMouseClicked
+
     public void recuperarDatos(){
         //Guardar en variables de la clase Login los datos en la base de datos
         Conexion objtConexion = new Conexion();
@@ -255,6 +251,8 @@ public class LoginInterfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField txtContrasena;
+    private javax.swing.JLabel txtOcultar;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JLabel txtVer;
     // End of variables declaration//GEN-END:variables
 }

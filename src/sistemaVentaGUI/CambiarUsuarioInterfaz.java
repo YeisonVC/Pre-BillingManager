@@ -22,10 +22,11 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
     public CambiarUsuarioInterfaz() {
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
+        this.txtOcultar2.setVisible(false);
     }
     
     public void habilitarBotonGuardar(){
-        if((txtContra.getText().isBlank())  || (txtUsuarioNuevo.getText().isBlank())){
+        if((String.valueOf(txtContra.getPassword()).isBlank())  || (txtUsuarioNuevo.getText().isBlank())){
             btnCambiar.setEnabled(false);
         }else {
              btnCambiar.setEnabled(true);
@@ -43,13 +44,16 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        txtOcultar2 = new javax.swing.JLabel();
+        txtVer2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnCambiar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtUsuarioNuevo = new javax.swing.JTextField();
-        txtContra = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 255));
@@ -57,6 +61,7 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(98, 133, 254));
 
@@ -69,18 +74,39 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 394, 50));
+
+        txtOcultar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ocultar.png"))); // NOI18N
+        txtOcultar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOcultar2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtOcultar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 141, 30, 20));
+
+        txtVer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ver.png"))); // NOI18N
+        txtVer2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtVer2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtVer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 141, 30, 20));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Usuario Nuevo:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 88, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 130, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Contraseña:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 144, -1, -1));
 
         btnCambiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnCambiar.setText("CAMBIAR");
@@ -90,6 +116,7 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
                 btnCambiarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 236, 107, 32));
 
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 0, 51));
@@ -99,6 +126,7 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 236, 107, 32));
 
         txtUsuarioNuevo.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtUsuarioNuevo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -106,60 +134,31 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
                 txtUsuarioNuevoKeyReleased(evt);
             }
         });
+        jPanel1.add(txtUsuarioNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 86, 187, -1));
 
-        txtContra.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtContra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtContra.setText("213131");
         txtContra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtContraKeyReleased(evt);
             }
         });
+        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 141, 187, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsuarioNuevo)
-                            .addComponent(txtContra, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))))
-                .addContainerGap(41, Short.MAX_VALUE))
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUsuarioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 294, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,6 +186,18 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
         this.habilitarBotonGuardar();
     }//GEN-LAST:event_txtUsuarioNuevoKeyReleased
 
+    private void txtOcultar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOcultar2MouseClicked
+        txtVer2.setVisible(true);
+        txtOcultar2.setVisible(false);
+        txtContra.setEchoChar('*');
+    }//GEN-LAST:event_txtOcultar2MouseClicked
+
+    private void txtVer2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtVer2MouseClicked
+        txtVer2.setVisible(false);
+        txtOcultar2.setVisible(true);
+        txtContra.setEchoChar((char)0);
+    }//GEN-LAST:event_txtVer2MouseClicked
+
     private void txtContraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraKeyReleased
         this.habilitarBotonGuardar();
     }//GEN-LAST:event_txtContraKeyReleased
@@ -208,7 +219,7 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
             System.out.println("Error" + e);
         } 
         
-        String contrasena = txtContra.getText();
+        String contrasena = String.valueOf(txtContra.getPassword());
         if(l.validarContrasena(contrasena)){
             actualizarUsuario();
             JOptionPane.showMessageDialog(null, "Usuario actualizado correctamente!!!");
@@ -274,7 +285,10 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtContra;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField txtContra;
+    private javax.swing.JLabel txtOcultar2;
     private javax.swing.JTextField txtUsuarioNuevo;
+    private javax.swing.JLabel txtVer2;
     // End of variables declaration//GEN-END:variables
 }

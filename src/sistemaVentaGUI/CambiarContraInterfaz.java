@@ -22,6 +22,8 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
     public CambiarContraInterfaz() {
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
+        this.txtOcultar3.setVisible(false);
+        this.txtOcultar4.setVisible(false);
     }
 
     /**
@@ -36,20 +38,26 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        txtOcultar3 = new javax.swing.JLabel();
+        txtVer3 = new javax.swing.JLabel();
+        txtVer4 = new javax.swing.JLabel();
+        txtOcultar4 = new javax.swing.JLabel();
         btnContraCambiar = new javax.swing.JButton();
         btnContraCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtContraAntigua = new javax.swing.JTextField();
-        txtContraNueva = new javax.swing.JTextField();
-        txtContraConfirmar = new javax.swing.JTextField();
+        txtContraNueva = new javax.swing.JPasswordField();
+        txtContraConfirmar = new javax.swing.JPasswordField();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(98, 133, 254));
 
@@ -62,12 +70,46 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 394, 50));
+
+        txtOcultar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ocultar.png"))); // NOI18N
+        txtOcultar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOcultar3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtOcultar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 125, 30, 22));
+
+        txtVer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ver.png"))); // NOI18N
+        txtVer3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtVer3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtVer3, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 125, 30, 22));
+
+        txtVer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ver.png"))); // NOI18N
+        txtVer4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtVer4MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtVer4, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 170, 30, 22));
+
+        txtOcultar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ocultar.png"))); // NOI18N
+        txtOcultar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOcultar4MouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtOcultar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 170, 30, 22));
 
         btnContraCambiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnContraCambiar.setText("CAMBIAR");
@@ -77,6 +119,7 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
                 btnContraCambiarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnContraCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 235, 107, 32));
 
         btnContraCancelar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnContraCancelar.setForeground(new java.awt.Color(255, 0, 51));
@@ -86,15 +129,19 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
                 btnContraCancelarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnContraCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 235, 107, 32));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Contraseña Antigua:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 81, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Contraseña Nueva:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 126, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Confirmar Nueva:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 172, -1, -1));
 
         txtContraAntigua.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtContraAntigua.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -102,68 +149,44 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
                 txtContraAntiguaKeyReleased(evt);
             }
         });
+        jPanel1.add(txtContraAntigua, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 79, 181, 24));
 
-        txtContraNueva.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtContraNueva.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtContraNueva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraNuevaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtContraNuevaKeyReleased(evt);
             }
         });
+        jPanel1.add(txtContraNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 124, 181, 24));
 
-        txtContraConfirmar.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtContraConfirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtContraConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraConfirmarKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtContraConfirmarKeyReleased(evt);
             }
         });
+        jPanel1.add(txtContraConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 170, 181, 24));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnContraCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContraAntigua, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                            .addComponent(txtContraNueva)
-                            .addComponent(txtContraConfirmar)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(btnContraCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtContraAntigua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtContraNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtContraConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnContraCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnContraCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 294, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,7 +208,7 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContraCancelarActionPerformed
     
     public void habilitarBotonCambiar(){
-        if((txtContraAntigua.getText().isBlank())  || (txtContraConfirmar.getText().isBlank() || (txtContraNueva.getText().isBlank()))){
+        if((txtContraAntigua.getText().isBlank())  || (String.valueOf(txtContraConfirmar.getPassword()).isBlank() || (String.valueOf(txtContraNueva.getPassword()).isBlank()))){
             btnContraCambiar.setEnabled(false);
         }else {
              btnContraCambiar.setEnabled(true);
@@ -200,18 +223,50 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
         this.habilitarBotonCambiar();
     }//GEN-LAST:event_txtContraAntiguaKeyReleased
 
-    private void txtContraNuevaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraNuevaKeyReleased
-         this.habilitarBotonCambiar();
-    }//GEN-LAST:event_txtContraNuevaKeyReleased
+    private void txtVer3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtVer3MouseClicked
+        txtVer3.setVisible(false);
+        txtOcultar3.setVisible(true);
+        txtContraNueva.setEchoChar((char)0);
+    }//GEN-LAST:event_txtVer3MouseClicked
+
+    private void txtVer4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtVer4MouseClicked
+        txtVer4.setVisible(false);
+        txtOcultar4.setVisible(true);
+        txtContraConfirmar.setEchoChar((char)0);
+    }//GEN-LAST:event_txtVer4MouseClicked
+
+    private void txtOcultar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOcultar3MouseClicked
+        txtVer3.setVisible(true);
+        txtOcultar3.setVisible(false);
+        txtContraNueva.setEchoChar('*');
+    }//GEN-LAST:event_txtOcultar3MouseClicked
+
+    private void txtOcultar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOcultar4MouseClicked
+        txtVer4.setVisible(true);
+        txtOcultar4.setVisible(false);
+        txtContraConfirmar.setEchoChar('*');
+    }//GEN-LAST:event_txtOcultar4MouseClicked
+
+    private void txtContraNuevaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraNuevaKeyPressed
+       
+    }//GEN-LAST:event_txtContraNuevaKeyPressed
+
+    private void txtContraConfirmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraConfirmarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraConfirmarKeyPressed
 
     private void txtContraConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraConfirmarKeyReleased
-         this.habilitarBotonCambiar();
+        this.habilitarBotonCambiar();
     }//GEN-LAST:event_txtContraConfirmarKeyReleased
+
+    private void txtContraNuevaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraNuevaKeyReleased
+       this.habilitarBotonCambiar();
+    }//GEN-LAST:event_txtContraNuevaKeyReleased
     
     public void validar(){
-        if((txtContraNueva.getText().equals(txtContraConfirmar.getText()))){
+        if((String.valueOf(txtContraNueva.getPassword()).equals(String.valueOf(txtContraConfirmar.getPassword())))){
             validarContrasena();
-        }else if(txtContraNueva.getText() != txtContraConfirmar.getText()){
+        }else if(String.valueOf(txtContraNueva.getPassword()) != String.valueOf(txtContraConfirmar.getPassword())){
             JOptionPane.showMessageDialog(null, "La contraseña nueva no coincide \n INTENTE NUEVAMENTE!!!");
         }
     }
@@ -249,7 +304,7 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
         
         //definir sentencia a enviar
         String strSentenciaEditar = String.format(
-                "UPDATE login SET Password = '%s'", txtContraNueva.getText());
+                "UPDATE login SET Password = '%s'", String.valueOf(txtContraNueva.getPassword()));
         objtConexion.ejecutarSentenciaSQL(strSentenciaEditar);
     }
     /**
@@ -296,8 +351,13 @@ public class CambiarContraInterfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtContraAntigua;
-    private javax.swing.JTextField txtContraConfirmar;
-    private javax.swing.JTextField txtContraNueva;
+    private javax.swing.JPasswordField txtContraConfirmar;
+    private javax.swing.JPasswordField txtContraNueva;
+    private javax.swing.JLabel txtOcultar3;
+    private javax.swing.JLabel txtOcultar4;
+    private javax.swing.JLabel txtVer3;
+    private javax.swing.JLabel txtVer4;
     // End of variables declaration//GEN-END:variables
 }
