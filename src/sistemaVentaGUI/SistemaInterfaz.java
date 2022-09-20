@@ -1,17 +1,25 @@
 package sistemaVentaGUI;
 
 import Reportes.Excel;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import sistemaVentaDAL.*;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 
@@ -31,6 +39,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);//centrar ventana
         txtClienteId.setBackground(new java.awt.Color(0,0,0,1));
+        pdf();
                 
         
         //------------------------
@@ -2068,6 +2077,47 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     
     
     //-------------------------
+    private void pdf() {
+        try {
+            FileOutputStream archivo;
+            File file = new File("src/pdf/venta.pdf");
+            archivo = new FileOutputStream(file);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            Image img = Image.getInstance("src/images/iconLogin.png");
+            
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Factura: 1\n"+"Fecha: "+new SimpleDateFormat("dd-mm-yyy").format(date)+"\n\n");
+            
+            PdfPTable Encabezado = new PdfPTable(4);
+            Encabezado.setWidthPercentage(100);
+            Encabezado.getDefaultCell().setBorder(0);
+            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
+            Encabezado.setWidths(ColumnaEncabezado);
+            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            Encabezado.addCell(img);
+            String nit = "1234";
+            String nom = "Pcs y Componentes";
+            String mail = "example@componentes.co";
+            String dir = "Cr 8 Cll - 15 Sur";
+            String ciudad = "Medellin";
+            
+            Encabezado.addCell("");
+            Encabezado.addCell("Nit: "+nit+ "\nNombre: " +nom+ "\nCorreo: " +mail+ "\nDireccion: " +dir+ "\nCiudad: " +ciudad);
+            Encabezado.addCell(fecha);
+            doc.add(Encabezado);
+            
+            doc.close();
+            archivo.close();
+        }catch(Exception e){
+            
+        }
+    }
     
     public void habilitarBotonCliente(){
         if(!txtClienteId.getText().isEmpty() && !txtClienteNombre.getText().isEmpty() &&
