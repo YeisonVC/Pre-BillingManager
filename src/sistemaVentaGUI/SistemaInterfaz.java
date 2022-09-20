@@ -1,5 +1,6 @@
 package sistemaVentaGUI;
 
+import Reportes.Excel;
 import java.awt.event.KeyEvent;
 import sistemaVentaDAL.*;
 import java.sql.*;
@@ -124,6 +125,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
         btnProductosEditar = new javax.swing.JButton();
         btnProductosLimpiar = new javax.swing.JButton();
         btnProductosEliminar = new javax.swing.JButton();
+        btnReporteExcel = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
@@ -785,24 +787,19 @@ public class SistemaInterfaz extends javax.swing.JFrame {
             }
         });
 
+        btnReporteExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/excel.png"))); // NOI18N
+        btnReporteExcel.setBorder(null);
+        btnReporteExcel.setBorderPainted(false);
+        btnReporteExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteExcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(btnProductosGuardar)
-                .addGap(64, 64, 64)
-                .addComponent(btnProductosEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnProductosLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(btnProductosEliminar)
-                .addGap(90, 90, 90))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -825,6 +822,23 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
                 .addGap(45, 45, 45))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnProductosGuardar)
+                        .addGap(64, 64, 64)
+                        .addComponent(btnProductosEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(btnProductosLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btnProductosEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReporteExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -854,13 +868,15 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProductosGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProductosEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProductosLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProductosEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnProductosGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProductosEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProductosLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProductosEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReporteExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("3", jPanel10);
@@ -1722,6 +1738,10 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private void txtVentaClienteNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVentaClienteNombreKeyReleased
         
     }//GEN-LAST:event_txtVentaClienteNombreKeyReleased
+
+    private void btnReporteExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteExcelActionPerformed
+        Excel.reporte();
+    }//GEN-LAST:event_btnReporteExcelActionPerformed
     
     private void Clear_Table1() {
         for (int i = 0; i < tblNuevaVenta.getRowCount(); i++) {
@@ -2128,6 +2148,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private javax.swing.JButton btnProductosEliminar;
     private javax.swing.JButton btnProductosGuardar;
     private javax.swing.JButton btnProductosLimpiar;
+    private javax.swing.JButton btnReporteExcel;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVentaAdd;
     private javax.swing.JButton btnVentaDelete;

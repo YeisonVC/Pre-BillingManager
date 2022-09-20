@@ -10,6 +10,7 @@ public class Conexion {
     //Daniel : "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db"
     
     Connection conn = null;//alias para Connection
+    Connection con = null;//alias para Connection
     
     //MÉTODO REALIZAR CONEXIÓN
     public Conexion(){// Método Constructor
@@ -56,6 +57,17 @@ public class Conexion {
             return null;
         }
         
+    }
+
+    public Connection getConnection() {
+       try {
+           String myDB = "jdbc:sqlite:C:/Users/danie/Desktop/Pre-BillingManager/src/Data Bases/sistemaventa.db";
+           con=DriverManager.getConnection(myDB);
+           return con;
+       }catch(SQLException e){
+           System.out.println(e.toString());
+           return null;
+       }
     }
 
 }
