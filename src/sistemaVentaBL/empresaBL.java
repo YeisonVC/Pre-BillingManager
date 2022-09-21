@@ -7,6 +7,20 @@ public class EmpresaBL {
     int Nit;
     long postal;
     String nombre, correo, direccion, pais, ciudad;
+
+    public EmpresaBL() {
+    }
+
+    public EmpresaBL(int Nit, long postal, String nombre, String correo, String direccion, String pais, String ciudad) {
+        this.Nit = Nit;
+        this.postal = postal;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.direccion = direccion;
+        this.pais = pais;
+        this.ciudad = ciudad;
+    }
+    
     
     //------------------------
     //GETTERS AND SETTERS
