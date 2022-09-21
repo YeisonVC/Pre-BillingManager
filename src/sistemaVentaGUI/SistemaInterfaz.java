@@ -1955,7 +1955,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
     private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
         if (!txtVentaIdVenta.getText().isEmpty()) {
             try {
-                File file = new File("src/pdf/venta" + txtVentaIdVenta.getText() + ".pdf");
+                File file = new File("../Pre-BillingManager/src/pdf/venta" + txtVentaIdVenta.getText() + ".pdf");
                 Desktop.getDesktop().open(file);
             } catch (IOException ex) {
                 Logger.getLogger(SistemaInterfaz.class.getName()).log(Level.SEVERE, null, ex);

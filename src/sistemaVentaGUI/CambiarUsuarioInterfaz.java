@@ -137,7 +137,6 @@ public class CambiarUsuarioInterfaz extends javax.swing.JFrame {
         jPanel1.add(txtUsuarioNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 86, 187, -1));
 
         txtContra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtContra.setText("213131");
         txtContra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtContraKeyReleased(evt);
