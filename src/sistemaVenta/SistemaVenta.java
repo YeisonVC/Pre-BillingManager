@@ -13,5 +13,4 @@ public class SistemaVenta {
         LoginInterfaz l = new LoginInterfaz();
         l.setVisible(true);
     }
-    
 }
