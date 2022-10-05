@@ -1193,8 +1193,8 @@ public class SistemaInterfaz extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(126, 126, 126)
-                .addComponent(btnConfigGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
+                .addComponent(btnConfigGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
                 .addComponent(btnConfigCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104)
                 .addComponent(btnConfigEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1826,7 +1826,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
             //NUEVA VENTA
             //------------------------
             //creación de objetos
-             pdf();
+            pdf();
             Conexion objtConexion = new Conexion();
             VentaBL objtVenta = recuperarDatosGUIVenta();
 
@@ -2313,7 +2313,7 @@ public class SistemaInterfaz extends javax.swing.JFrame {
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
             fecha.add(Chunk.NEWLINE);
             Date date = new Date();
-            fecha.add("Factura: 1\n"+"Fecha: "+new SimpleDateFormat("dd-mm-yyy hh:mm:ss a").format(date)+"\n\n");
+            fecha.add("Factura: 1\n"+"Fecha: "+new SimpleDateFormat("dd-MM-YYYY hh:mm:ss a").format(date)+"\n\n");
             
             PdfPTable Encabezado = new PdfPTable(4);
             Encabezado.setWidthPercentage(100);
